@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fake News Detection — DistilBERT</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" onclick="showPage('home')">
+        <span class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </span>
+        <span class="logo-text">FakeGuard<span class="logo-accent">AI</span></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#" class="nav-link active" data-page="home" onclick="showPage('home')">Home</a>
+        <a href="#" class="nav-link" data-page="detect" onclick="showPage('detect')">Detection</a>
+        <a href="#" class="nav-link" data-page="about" onclick="showPage('about')">About</a>
+      </div>
+      <button class="nav-cta" onclick="showPage('detect')">Try It Now</button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE: HOME ===== -->
+  <div class="page active" id="page-home">
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="hero-bg-grid"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          NLP Research Project · Bina Nusantara University
+        </div>
+        <h1 class="hero-title">
+          Detect <em>Fake News</em><br>with DistilBERT
+        </h1>
+        <p class="hero-subtitle">
+          Paste any English news article and receive an instant AI-powered classification — <strong>Fake</strong> or <strong>Legitimate</strong> — powered by a fine-tuned DistilBERT transformer model.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="showPage('detect')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Start News Detection
+          </button>
+          <button class="btn-ghost" onclick="showPage('about')">Learn How It Works</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">4</span>
+            <span class="stat-label">Models Compared</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">44K+</span>
+            <span class="stat-label">Training Articles</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">DistilBERT</span>
+            <span class="stat-label">Best Performing</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-card main-card">
+          <div class="vc-header">
+            <span class="vc-dot red"></span>
+            <span class="vc-dot yellow"></span>
+            <span class="vc-dot green"></span>
+            <span class="vc-title">analysis_result.json</span>
+          </div>
+          <div class="vc-body">
+            <pre class="code-block"><span class="code-key">"prediction"</span>: <span class="code-str">"Legitimate"</span>,
+<span class="code-key">"confidence"</span>: <span class="code-num">96.2</span>,
+<span class="code-key">"model"</span>: <span class="code-str">"DistilBERT"</span>,
+<span class="code-key">"status"</span>: <span class="code-green">"✓ verified"</span></pre>
+          </div>
+        </div>
+        <div class="visual-card chip-card">
+          <div class="chip-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M8 2v20M16 2v20M2 8h20M2 16h20"/></svg>
+          </div>
+          <div>
+            <div class="chip-label">Transformer</div>
+            <div class="chip-value">Self-Attention</div>
+          </div>
+        </div>
+        <div class="visual-card accuracy-card">
+          <div class="acc-label">Model Accuracy</div>
+          <div class="acc-bar-wrap">
+            <div class="acc-bar" style="--w:96%"></div>
+          </div>
+          <div class="acc-num">96%+</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">What We Built</span>
+          <h2>A Comparative NLP Study</h2>
+          <p>We trained and benchmarked four models across classical ML, deep learning, and transformer architectures.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.004-4.964 2.5 2.5 0 0 1 1.5-4.055V8A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.004-4.964A2.5 2.5 0 0 0 16.5 10V8A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+            </div>
+            <h3>DistilBERT Transformer</h3>
+            <p>Fine-tuned on 44K+ news articles. Uses self-attention to understand deep contextual meaning — the best performer in our study.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon teal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3>Bi-LSTM Deep Learning</h3>
+            <p>Reads articles in both forward and backward directions using GloVe embeddings to capture word order and narrative flow.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon indigo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+            </div>
+            <h3>Classical ML Baselines</h3>
+            <p>Naive Bayes and SVM trained on TF-IDF, Empath, and hand-crafted linguistic features for robust comparison.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon amber">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Anti-Leakage Design</h3>
+            <p>Metadata tags (e.g. "Reuters") were stripped from training data to prevent shortcuts and ensure genuine generalization.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Preview -->
+    <section class="team-preview">
+      <div class="container">
+        <div class="tp-inner">
+          <div class="tp-text">
+            <span class="section-tag">The Team</span>
+            <h2>Computer Science, Bina Nusantara University</h2>
+            <p>Built by three undergraduate researchers passionate about combating misinformation through machine learning.</p>
+            <button class="btn-primary" onclick="showPage('about'); setTimeout(()=>{ document.getElementById('team-section').scrollIntoView({behavior:'smooth'}); }, 300)">Meet the Team</button>
+          </div>
+          <div class="tp-members">
+            <div class="tp-member">
+              <div class="tp-avatar">CG</div>
+              <div class="tp-name">Carson Glenn Wijaya</div>
+            </div>
+            <div class="tp-member">
+              <div class="tp-avatar">EW</div>
+              <div class="tp-name">Edward Wibowo</div>
+            </div>
+            <div class="tp-member">
+              <div class="tp-avatar">RP</div>
+              <div class="tp-name">Raditama Putra</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-home -->
+
+  <!-- ===== PAGE: DETECT ===== -->
+  <div class="page" id="page-detect">
+    <section class="detect-section">
+      <div class="container">
+        <div class="detect-header">
+          <span class="section-tag">Live Demo</span>
+          <h2>News Article Analyzer</h2>
+          <p>Paste a full English news article below. The model will analyze its content and classify it.</p>
+        </div>
+
+        <div class="detect-layout">
+          <!-- Input Panel -->
+          <div class="input-panel">
+            <div class="input-card">
+              <div class="input-card-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Paste News Article
+              </div>
+              <textarea
+                id="newsInput"
+                class="news-textarea"
+                placeholder="Paste an English news article here...&#10;&#10;Example: 'WASHINGTON — The Senate passed a sweeping bill on Thursday that would...'"
+                spellcheck="false"
+              ></textarea>
+              <div class="input-meta">
+                <span id="charCount">0 characters</span>
+                <button class="btn-clear" id="clearBtn" onclick="clearInput()">Clear</button>
+              </div>
+              <button class="btn-analyze" id="analyzeBtn" onclick="analyzeArticle()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                Analyze News Article
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Panel -->
+          <div class="result-panel" id="resultPanel">
+
+            <!-- Idle State -->
+            <div class="result-idle" id="resultIdle">
+              <div class="idle-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+              </div>
+              <p class="idle-text">Your analysis result will appear here after you submit an article.</p>
+            </div>
+
+            <!-- Loading State -->
+            <div class="result-loading" id="resultLoading" style="display:none;">
+              <div class="spinner"></div>
+              <p class="loading-text">Analyzing article<span class="dots"></span></p>
+              <p class="loading-sub">DistilBERT is processing your text</p>
+            </div>
+
+            <!-- Result: Legitimate -->
+            <div class="result-card result-legit" id="resultLegit" style="display:none;">
+              <div class="result-icon-wrap legit-icon-bg">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              </div>
+              <div class="result-label">Prediction Result</div>
+              <div class="result-verdict legit-text">LEGITIMATE NEWS</div>
+              <div class="confidence-wrap">
+                <div class="confidence-label">Confidence Score</div>
+                <div class="confidence-bar-bg">
+                  <div class="confidence-bar legit-bar" id="legitBar"></div>
+                </div>
+                <div class="confidence-val" id="legitScore"></div>
+              </div>
+              <p class="result-explanation">Based on the model prediction, this article is classified as <strong>Legitimate News</strong>. The content aligns with patterns of credible reporting identified during training.</p>
+              <div class="result-meta">
+                <span>Model: DistilBERT</span>
+                <span id="legitTime"></span>
+              </div>
+            </div>
+
+            <!-- Result: Fake -->
+            <div class="result-card result-fake" id="resultFake" style="display:none;">
+              <div class="result-icon-wrap fake-icon-bg">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div class="result-label">Prediction Result</div>
+              <div class="result-verdict fake-text">FAKE NEWS</div>
+              <div class="confidence-wrap">
+                <div class="confidence-label">Confidence Score</div>
+                <div class="confidence-bar-bg">
+                  <div class="confidence-bar fake-bar" id="fakeBar"></div>
+                </div>
+                <div class="confidence-val" id="fakeScore"></div>
+              </div>
+              <p class="result-explanation">Based on the model prediction, this article is classified as <strong>Fake News</strong>. The content exhibits linguistic patterns commonly associated with misinformation detected during training.</p>
+              <div class="result-meta">
+                <span>Model: DistilBERT</span>
+                <span id="fakeTime"></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <p class="detect-disclaimer">
+          ⚠️ This is a university demonstration project. Results are simulated on the frontend. Backend integration is pending.
+        </p>
+      </div>
+    </section>
+  </div><!-- /page-detect -->
+
+  <!-- ===== PAGE: ABOUT ===== -->
+  <div class="page" id="page-about">
+    <section class="about-hero">
+      <div class="container">
+        <span class="section-tag">Research Overview</span>
+        <h2>About This Project</h2>
+        <p class="about-intro">A comparative NLP study evaluating machine learning, deep learning, and transformer-based approaches for automated fake news detection.</p>
+      </div>
+    </section>
+
+    <section class="about-body">
+      <div class="container about-container">
+
+        <!-- About Project -->
+        <div class="about-block">
+          <div class="about-block-icon blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="about-block-content">
+            <h3>What is Fake News?</h3>
+            <p>Fake news refers to deliberately fabricated or misleading information intended to deceive readers and influence public opinion. The rapid growth of digital platforms has made fake news one of the most pressing challenges of the information age — it spreads faster than corrections and can cause real-world harm.</p>
+            <p>Automated detection is critical because manual fact-checking cannot scale to the volume of content published online every day. NLP models like DistilBERT can analyze textual patterns at speed and scale no human team could match.</p>
+          </div>
+        </div>
+
+        <!-- Model Information -->
+        <div class="about-block">
+          <div class="about-block-icon teal">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M8 2v20M16 2v20M2 8h20M2 16h20"/></svg>
+          </div>
+          <div class="about-block-content">
+            <h3>About DistilBERT</h3>
+            <p>DistilBERT is a compact, faster version of Google's BERT (Bidirectional Encoder Representations from Transformers) language model. Think of it as an AI that has read millions of web pages and learned how language works — it understands not just individual words, but the <em>meaning</em> formed by words in context.</p>
+            <p>For fake news detection, we fine-tuned DistilBERT on our specific dataset, teaching it the subtle linguistic differences between credible journalism and fabricated content — things like sensationalist phrasing, emotional manipulation, and lack of factual grounding.</p>
+            <div class="model-chips">
+              <span class="model-chip">Self-Attention Mechanism</span>
+              <span class="model-chip">Contextual Embeddings</span>
+              <span class="model-chip">Transfer Learning</span>
+              <span class="model-chip">Fine-Tuned on Kaggle Dataset</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preprocessing Pipeline -->
+        <div class="about-block full-width">
+          <div class="about-block-icon indigo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="about-block-content">
+            <h3>Preprocessing Pipeline</h3>
+            <p>Before feeding text to the model, each article goes through a cleaning pipeline to reduce noise and improve classification quality.</p>
+            <div class="pipeline">
+              <div class="pipeline-step">
+                <div class="ps-num">01</div>
+                <div class="ps-body">
+                  <div class="ps-title">Lowercasing</div>
+                  <div class="ps-desc">All text converted to lowercase for uniform token matching.</div>
+                </div>
+              </div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">
+                <div class="ps-num">02</div>
+                <div class="ps-body">
+                  <div class="ps-title">URL & IP Removal</div>
+                  <div class="ps-desc">Web addresses and IP strings stripped to prevent irrelevant features.</div>
+                </div>
+              </div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">
+                <div class="ps-num">03</div>
+                <div class="ps-body">
+                  <div class="ps-title">Metadata Cleaning</div>
+                  <div class="ps-desc">Publisher headers (e.g. "Reuters") removed to prevent data leakage.</div>
+                </div>
+              </div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">
+                <div class="ps-num">04</div>
+                <div class="ps-body">
+                  <div class="ps-title">Punctuation Removal</div>
+                  <div class="ps-desc">Special characters cleaned for traditional models (preserved for transformers).</div>
+                </div>
+              </div>
+              <div class="pipeline-arrow">→</div>
+              <div class="pipeline-step">
+                <div class="ps-num">05</div>
+                <div class="ps-body">
+                  <div class="ps-title">Tokenization</div>
+                  <div class="ps-desc">Text split into tokens; DistilBERT uses its own WordPiece tokenizer.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How Prediction Works -->
+        <div class="about-block full-width">
+          <div class="about-block-icon amber">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="about-block-content">
+            <h3>How Prediction Works</h3>
+            <div class="flow">
+              <div class="flow-step">
+                <div class="flow-icon">📝</div>
+                <div class="flow-label">User Input</div>
+                <div class="flow-sub">Raw news article text</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step">
+                <div class="flow-icon">🔧</div>
+                <div class="flow-label">Preprocessing</div>
+                <div class="flow-sub">Clean, normalize, tokenize</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step">
+                <div class="flow-icon">🤖</div>
+                <div class="flow-label">DistilBERT Model</div>
+                <div class="flow-sub">Self-attention encoding</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step">
+                <div class="flow-icon">📊</div>
+                <div class="flow-label">Softmax Classifier</div>
+                <div class="flow-sub">Compute class probabilities</div>
+              </div>
+              <div class="flow-arrow">↓</div>
+              <div class="flow-step highlight-step">
+                <div class="flow-icon">✅</div>
+                <div class="flow-label">Prediction + Confidence</div>
+                <div class="flow-sub">Fake / Legitimate + score</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Members -->
+        <div class="about-block full-width" id="team-section">
+          <div class="about-block-icon rose">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="about-block-content">
+            <h3>Team Members</h3>
+            <p>Department of Computer Science · Bina Nusantara University · Tangerang, Indonesia</p>
+            <div class="team-grid">
+              <div class="member-card">
+                <div class="member-avatar">CG</div>
+                <div class="member-info">
+                  <div class="member-name">Carson Glenn Wijaya</div>
+                  <div class="member-email">carson.wijaya@binus.ac.id</div>
+                  <div class="member-dept">Dept. of Computer Science</div>
+                </div>
+              </div>
+              <div class="member-card">
+                <div class="member-avatar">EW</div>
+                <div class="member-info">
+                  <div class="member-name">Edward Wibowo</div>
+                  <div class="member-email">edward.wibowo001@binus.ac.id</div>
+                  <div class="member-dept">Dept. of Computer Science</div>
+                </div>
+              </div>
+              <div class="member-card">
+                <div class="member-avatar">RP</div>
+                <div class="member-info">
+                  <div class="member-name">Raditama Putra</div>
+                  <div class="member-email">raditama.putra@binus.ac.id</div>
+                  <div class="member-dept">Dept. of Computer Science</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /about-container -->
+    </section>
+  </div><!-- /page-about -->
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text">FakeGuard<span class="logo-accent">AI</span></span>
+        <span class="footer-sub">Bina Nusantara University · Computer Science</span>
+      </div>
+      <div class="footer-links">
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('detect')">Detection</a>
+        <a href="#" onclick="showPage('about')">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
