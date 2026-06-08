@@ -1,1 +1,5 @@
 distilbert/model_distilbert/
+ipynb_training/dataset/
+ipynb_training/glove.6B/
+ipynb_training/outputs/
+ipynb_training/combined_test_data.csv/
