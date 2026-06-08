@@ -2,6 +2,10 @@ import os
 from flask import Flask, request, render_template_string
 from transformers import pipeline
 
+import sys
+sys.path.append('backend/preprocess/')
+from preprocess import prepare_for_distilbert
+
 app = Flask(__name__)
 
 # --- BULLETPROOF MODEL LOADING ---
@@ -81,12 +85,13 @@ def index():
             error = "Model failed to load. Check server logs."
         elif text_input.strip():
             try:
-                prediction = classifier(text_input[:512])[0]
+                preprocessed_text = prepare_for_distilbert(body=text_input)
+                prediction = classifier(preprocessed_text[:512])[0]
                 
                 # --- LABEL MAPPING LOGIC ---
                 LABEL_MAPPING = {
-                    "LABEL_0": "Real",
-                    "LABEL_1": "Fake"
+                    "LABEL_0": "Fake",
+                    "LABEL_1": "Real"
                 }
                 
                 # Assign the mapped label (or fallback to original if not found)
