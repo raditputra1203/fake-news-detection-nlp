@@ -1,3 +1,7 @@
+__pycache__/
+venv/
+env/
+
 distilbert/model_distilbert/
 ipynb_training/dataset/
 ipynb_training/glove.6B/
